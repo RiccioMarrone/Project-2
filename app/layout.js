@@ -2,6 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/Nav";
 import AuthProvider from "./components/AuthProvider";
+import StoreProvider from "@/store/storeProvider";
+import SwiperComponent from "./components/Swiper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,13 +14,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <AuthProvider>
-        <body>
-          <Nav />
-          {children}
-        </body>
-      </AuthProvider>
-    </html>
+    <StoreProvider>
+      <html lang="en">
+        <AuthProvider>
+          <body>
+            <Nav />
+
+            {children}
+          </body>
+        </AuthProvider>
+      </html>
+    </StoreProvider>
   );
 }

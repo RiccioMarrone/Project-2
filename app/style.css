@@ -1,0 +1,14 @@
+body{
+    background-color: #000000;
+}
+nav{
+    background-color: #23252A;
+}
+.box-slider{
+    height: calc(100vh);
+    background: linear-gradient(to top, black, rgba(255, 255, 255, 0)),url("https://static.crunchyroll.com/fms/landscape_large/94/png/659a796d-6077-4564-bd89-843a70bb62e5.webp");
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-position: right;
+
+}
