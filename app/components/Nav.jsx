@@ -3,6 +3,8 @@ import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import Link from "next/link";
 import { options } from "../api/auth/[...nextauth]/options";
+import { changeState } from "@/features/showLogin";
+import { useSelector, useDispatch } from "react-redux";
 
 //Icone
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -11,14 +13,17 @@ import { FaRegUser } from "react-icons/fa";
 import { IoIosArrowUp } from "react-icons/io";
 import { FaRegBookmark } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import SearchBar from "./SearchBar";
 
 const Nav = () => {
   const { data: session } = useSession();
   const [isVisible, setIsVisible] = useState(false);
+  const searchBar = useSelector((state) => state.showLogin.value);
+  const dispatch = useDispatch();
   //Funzioni
 
   return (
-    <header className="bg-gray-400  min-w-[700px] w-full sticky top-0 z-10 ">
+    <header className="bg-gray-400  min-w-[700px] flex flex-col w-full sticky top-0 z-10 ">
       <nav className="w-full h-[120px] grid grid-cols-12 text-[17x] md:text-[20px]">
         {/* Mobile nav logo/hamburger */}
         <div className="md:hidden flex items-center justify-start ps-[1.7em] col-span-6  gap-5">
@@ -58,7 +63,10 @@ const Nav = () => {
             </svg>
           </span>
           {/* Icon Search */}
-          <span className="flex items-center w-auto h-full">
+          <span
+            onClick={() => dispatch(changeState(!searchBar))}
+            className="flex items-center w-auto h-full"
+          >
             <CiSearch className=" text-white text-[2.6em] min-w-[2em]" />
           </span>
 
@@ -75,7 +83,7 @@ const Nav = () => {
                 />
               </span>
               <span
-                className={`absolute left-0 w-[100px] top-full h-auto py-4 flex flex-col gap-2 items-center justify-center bg-[#23252A] ${
+                className={`absolute z-20 left-0 w-[100px] top-full h-auto py-4 flex flex-col gap-2 items-center justify-center bg-[#23252A] ${
                   isVisible ? "opacity-100" : "opacity-0"
                 }`}
               >
@@ -156,13 +164,16 @@ const Nav = () => {
           </span>
 
           {/* Slot Trial */}
-          <span className="h-full flex flex-col justify-center items-center max-w-[120px] text-[0.6em] w-auto">
+          <span className="  h-full flex flex-col justify-center items-center w-auto text-[0.70em] w-auto">
             <p className="text-yellow-500">Prova Gratis</p>
             <p>Premium</p>
           </span>
 
           {/* Icona Search */}
-          <span className="flex items-center w-auto h-full">
+          <span
+            onClick={() => dispatch(changeState(!searchBar))}
+            className="flex items-center w-auto h-full"
+          >
             <CiSearch className=" text-white text-[1.5em] min-w-[1.5em]" />
           </span>
 
@@ -236,6 +247,7 @@ const Nav = () => {
           )}
         </div>
       </nav>
+      <SearchBar searchBar={searchBar} />
     </header>
   );
 };
